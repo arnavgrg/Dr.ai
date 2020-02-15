@@ -1,3 +1,24 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+
+@junhui096
+arnavgrg
+/
+TreeHacks2020
+1
+01
+ Code Issues 0 Pull requests 1 Actions Projects 0 Wiki Security Insights
+TreeHacks2020/templates/base.html
+@arnavgrg arnavgrg Updated base.html to remove unnecessary page headers
+cf8dd7a 28 seconds ago
+@arnavgrg@junhui096
+300 lines (258 sloc)  10.7 KB
+
 <html>
   <head>
     <script src="https://unpkg.com/houndify@3.1.1/dist/houndify.js"></script>
@@ -164,12 +185,12 @@
           //for handling the authentication and proxying
           //text search http requests to Houndify backend
           //See SDK's server-side method HoundifyExpress.createTextProxyHandler().
-          proxy: {
-            method: "POST",
-            url: "/textSearchProxy"
+          //proxy: {
+          //  method: "POST",
+          //  url: "/textSearchProxy"
             // headers: {}
             // ... More proxy options will be added as needed
-          },
+         // },
 
           //Response and error handlers
           onResponse: onResponse,
@@ -264,10 +285,15 @@
         reader.readAsArrayBuffer(file);
       }
 
+      function fireEvent(data) {
+          console.log(data)
+      }
+
       //Fires after server responds with Response JSON
       //Info object contains useful information about the completed request
       //See https://houndify.com/reference/HoundServer
       function onResponse(response, info) {
+        fireEvent(response.Disambiguation.ChoiceData[0].Transcription)
         if (response.AllResults && response.AllResults.length) {
           //Pick and store appropriate ConversationState from the results.
           //This example takes the default one from the first result.
