@@ -1,0 +1,3 @@
+[submodule "video-quickstart-js"]
+	path = video-quickstart-js
+	url = https://github.com/arnavgrg/video-quickstart-js
