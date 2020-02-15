@@ -1,0 +1,1 @@
+bert-serving-start -model_dir=uncased_L-12_H-768_A-12/ -ckpt_name=bert_model.ckpt -config_name=bert_config.json -num_worker=1 -max_seq_len=30 
