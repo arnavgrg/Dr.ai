@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <head>
+        <title>
+            Need to add title here
+        </title>
+    </head>
+    <body style="background-color: #001f3f;">
+        <div class="card" style="margin: auto; width: 50%; margin-top: 15em; height: 50%; text-align: center;">
+            <div class="card-body">
+                <h3>Welcome!</h3><br/>
+                <form action="http://127.0.0.1:5000/query" method="post">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Please Enter Your name:</label>
+                      <input type="text" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter your name here">
+                      <small id="emailHelp" class="form-text text-muted">We only want this to personalize your experience :)</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enter</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
