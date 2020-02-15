@@ -1,8 +1,7 @@
-from flask import render_template
+from flask import render_template, request
 from flask import Flask
 
 app = Flask(__name__)
-app.debug = True
 
 @app.route('/') 
 def index():
@@ -10,4 +9,8 @@ def index():
 
 @app.route('/query', methods=['POST','GET'])
 def get():
-    return render_template('base.html')
+    user_name = request.form.get('userName')
+    return render_template('base.html', username=user_name)
+
+if __name__ == "__main__":
+    app.run(debug=True)
