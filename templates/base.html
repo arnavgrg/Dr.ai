@@ -1,3 +1,24 @@
+Skip to content
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+
+@junhui096
+arnavgrg
+/
+TreeHacks2020
+1
+01
+ Code Issues 0 Pull requests 1 Actions Projects 0 Wiki Security Insights
+TreeHacks2020/templates/base.html
+@arnavgrg arnavgrg Updated base.html to remove unnecessary page headers
+cf8dd7a 28 seconds ago
+@arnavgrg@junhui096
+300 lines (258 sloc)  10.7 KB
+
 <html>
   <head>
     <script src="https://unpkg.com/houndify@3.1.1/dist/houndify.js"></script>
@@ -13,7 +34,14 @@
 
   <body class="bg-gray-100 min-h-screen">
     <div class="m-auto max-w-3xl bg-white py-12 px-6">
-      <h2 class="text-3xl font-bold mb-6">QueryBot Demo</h2>
+      <h1 style="text-align: center;"> Welcome, {% print(username) %} </h1>
+      <div id="status" class="bg-blue-100 text-blue-700 p-4 my-4 rounded">
+        <div class="text-xs font-bold text-blue-700">Status</div>
+        <p class="text-sm">
+          Click on the Mic and say a voice query, or type in the text query into
+          the input box.
+        </p>
+      </div>
 
       <form id="form" action="javascript:void(0);">
         <div class="p-6 bg-gray-200 my-12 shadow-xl rounded">
@@ -27,7 +55,7 @@
           <input
             id="query"
             type="text"
-            placeholder="Hello {{ username }}!"
+            placeholder="Click on a microphone icon or type in your query..."
             class="text-xl appearance-none border rounded p-2 w-3/4 text-gray-700 h-12 focus:outline-none focus:shadow-outline"
           />
           <button
@@ -158,11 +186,12 @@
           //text search http requests to Houndify backend
           //See SDK's server-side method HoundifyExpress.createTextProxyHandler().
           //proxy: {
-           // method: "POST",
-           // url: "/textSearchProxy"
+          //  method: "POST",
+          //  url: "/textSearchProxy"
             // headers: {}
             // ... More proxy options will be added as needed
-        //  },
+         // },
+
           //Response and error handlers
           onResponse: onResponse,
           onError: onError
@@ -256,13 +285,15 @@
         reader.readAsArrayBuffer(file);
       }
 
-      function fireEvents(text) {
-          console.log(text)
+      function fireEvent(data) {
+          console.log(data)
       }
+
       //Fires after server responds with Response JSON
       //Info object contains useful information about the completed request
       //See https://houndify.com/reference/HoundServer
       function onResponse(response, info) {
+        fireEvent(response.Disambiguation.ChoiceData[0].Transcription)
         if (response.AllResults && response.AllResults.length) {
           //Pick and store appropriate ConversationState from the results.
           //This example takes the default one from the first result.
@@ -274,7 +305,6 @@
         responseElt.value = response.stringify(undefined, 2);
         infoElt.parentNode.hidden = false;
         infoElt.value = JSON.stringify(info, undefined, 2);
-        fireEvents(response["Disambiguation"]["ChoiceData"][0]["Transcription"])
       }
 
       //Fires if error occurs during the request
