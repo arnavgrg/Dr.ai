@@ -1,24 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
-
-@junhui096
-arnavgrg
-/
-TreeHacks2020
-1
-01
- Code Issues 0 Pull requests 1 Actions Projects 0 Wiki Security Insights
-TreeHacks2020/templates/base.html
-@arnavgrg arnavgrg Updated base.html to remove unnecessary page headers
-cf8dd7a 28 seconds ago
-@arnavgrg@junhui096
-300 lines (258 sloc)  10.7 KB
-
 <html>
   <head>
     <script src="https://unpkg.com/houndify@3.1.1/dist/houndify.js"></script>
@@ -30,6 +9,12 @@ cf8dd7a 28 seconds ago
       src="https://kit.fontawesome.com/364c1db764.js"
       crossorigin="anonymous"
     ></script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
   </head>
 
   <body class="bg-gray-100 min-h-screen">
@@ -174,7 +159,9 @@ cf8dd7a 28 seconds ago
           requestInfo: {
             UserID: "test_user",
             Latitude: 37.388309,
-            Longitude: -121.973968
+            Longitude: -121.973968,
+            ResponseAudioVoice: "Judy",
+            ResponseAudioShortOrLong: "Short"
           },
 
           //Pass the current ConversationState stored from previous queries
@@ -220,7 +207,9 @@ cf8dd7a 28 seconds ago
           requestInfo: {
             UserID: "test_user",
             Latitude: 37.388309,
-            Longitude: -121.973968
+            Longitude: -121.973968,
+            ResponseAudioVoice: "Judy",
+            ResponseAudioShortOrLong: "Short"
           },
 
           //Pass the current ConversationState stored from previous queries
@@ -286,7 +275,14 @@ cf8dd7a 28 seconds ago
       }
 
       function fireEvent(data) {
+          const url = "/response";
+          const payload={
+              data:data
+          }
           console.log(data)
+          $.post(url, data, function(data, status) {
+              console.log(`${data} and ${status}`);
+          })
       }
 
       //Fires after server responds with Response JSON
