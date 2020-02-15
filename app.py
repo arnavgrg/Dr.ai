@@ -1,5 +1,6 @@
 from flask import render_template, request
 from flask import Flask
+import os
 
 app = Flask(__name__)
 
@@ -13,4 +14,6 @@ def get():
     return render_template('base.html', username=user_name)
 
 if __name__ == "__main__":
+    os.environ['FLASK_ENV']='development'
+    os.environ['FLASK_DEBUG']="1"
     app.run(debug=True)

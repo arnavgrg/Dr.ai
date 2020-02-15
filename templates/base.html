@@ -13,33 +13,7 @@
 
   <body class="bg-gray-100 min-h-screen">
     <div class="m-auto max-w-3xl bg-white py-12 px-6">
-      <h2 class="text-3xl font-bold mb-6">Houndify JavaScript SDK Demo</h2>
-      <p class="pb-2">
-        This example demonstrates how to query the Houndify SDK using text and
-        voice requests. The example is built in vanilla JavaScript and can be
-        ported to other JavaScript frameworks.
-      </p>
-
-      <h2 class="text-lg font-bold mt-6">Setup</h2>
-      <p class="pb-2">
-        To setup this example, you need to add your Houndify Client ID into the
-        HTML file. You can get your free Client ID by creating an account on
-        <a class="text-blue-500" href="https://houndify.com">www.houndify.com</a
-        >. Refer to the
-        <a
-          class="text-blue-500"
-          href="https://github.com/soundhound/hound-sdk-web-example/blob/master/README.md"
-          >README.md</a
-        >
-        for more information.
-      </p>
-      <p class="pb-2">
-        Once you have entered in your Client ID, click on the microphone to make
-        a voice query (ex: <i>"What's the weather in Toronto"</i>), or type it
-        into the input box and click on the search button. You'll see a JSON
-        response in the <strong>Response JSON</strong> box below.
-      </p>
-
+      <h1 style="text-align: center;"> Welcome, {% print(username) %} </h1>
       <div id="status" class="bg-blue-100 text-blue-700 p-4 my-4 rounded">
         <div class="text-xs font-bold text-blue-700">Status</div>
         <p class="text-sm">
