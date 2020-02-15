@@ -13,40 +13,7 @@
 
   <body class="bg-gray-100 min-h-screen">
     <div class="m-auto max-w-3xl bg-white py-12 px-6">
-      <h2 class="text-3xl font-bold mb-6">Houndify JavaScript SDK Demo</h2>
-      <p class="pb-2">
-        This example demonstrates how to query the Houndify SDK using text and
-        voice requests. The example is built in vanilla JavaScript and can be
-        ported to other JavaScript frameworks.
-      </p>
-
-      <h2 class="text-lg font-bold mt-6">Setup</h2>
-      <p class="pb-2">
-        To setup this example, you need to add your Houndify Client ID into the
-        HTML file. You can get your free Client ID by creating an account on
-        <a class="text-blue-500" href="https://houndify.com">www.houndify.com</a
-        >. Refer to the
-        <a
-          class="text-blue-500"
-          href="https://github.com/soundhound/hound-sdk-web-example/blob/master/README.md"
-          >README.md</a
-        >
-        for more information.
-      </p>
-      <p class="pb-2">
-        Once you have entered in your Client ID, click on the microphone to make
-        a voice query (ex: <i>"What's the weather in Toronto"</i>), or type it
-        into the input box and click on the search button. You'll see a JSON
-        response in the <strong>Response JSON</strong> box below.
-      </p>
-
-      <div id="status" class="bg-blue-100 text-blue-700 p-4 my-4 rounded">
-        <div class="text-xs font-bold text-blue-700">Status</div>
-        <p class="text-sm">
-          Click on the Mic and say a voice query, or type in the text query into
-          the input box.
-        </p>
-      </div>
+      <h2 class="text-3xl font-bold mb-6">QueryBot Demo</h2>
 
       <form id="form" action="javascript:void(0);">
         <div class="p-6 bg-gray-200 my-12 shadow-xl rounded">
@@ -60,7 +27,7 @@
           <input
             id="query"
             type="text"
-            placeholder="Click on a microphone icon or type in your query..."
+            placeholder="Hello {{ username }}!"
             class="text-xl appearance-none border rounded p-2 w-3/4 text-gray-700 h-12 focus:outline-none focus:shadow-outline"
           />
           <button
@@ -190,12 +157,12 @@
           //for handling the authentication and proxying
           //text search http requests to Houndify backend
           //See SDK's server-side method HoundifyExpress.createTextProxyHandler().
-          proxy: {
-            method: "POST",
-            url: "/textSearchProxy"
+          //proxy: {
+           // method: "POST",
+           // url: "/textSearchProxy"
             // headers: {}
             // ... More proxy options will be added as needed
-          },
+        //  },
 
           //Response and error handlers
           onResponse: onResponse,
@@ -290,6 +257,10 @@
         reader.readAsArrayBuffer(file);
       }
 
+      function fireEvents(text) {
+          console.log(text)
+      }
+
       //Fires after server responds with Response JSON
       //Info object contains useful information about the completed request
       //See https://houndify.com/reference/HoundServer
@@ -305,6 +276,7 @@
         responseElt.value = response.stringify(undefined, 2);
         infoElt.parentNode.hidden = false;
         infoElt.value = JSON.stringify(info, undefined, 2);
+        fireEvents(response["Disambiguation"]["ChoiceData"][0]["Transcription"])
       }
 
       //Fires if error occurs during the request
