@@ -1,24 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
-
-@junhui096
-arnavgrg
-/
-TreeHacks2020
-1
-01
- Code Issues 0 Pull requests 1 Actions Projects 0 Wiki Security Insights
-TreeHacks2020/templates/base.html
-@arnavgrg arnavgrg Updated base.html to remove unnecessary page headers
-cf8dd7a 28 seconds ago
-@arnavgrg@junhui096
-300 lines (258 sloc)  10.7 KB
-
 <html>
   <head>
     <script src="https://unpkg.com/houndify@3.1.1/dist/houndify.js"></script>
@@ -167,7 +146,7 @@ cf8dd7a 28 seconds ago
           //Otherwise you need to create an endpoint on your server
           //for handling the authentication.
           //See SDK's server-side method HoundifyExpress.createAuthenticationHandler().
-          {#authURL: "/houndifyAuth",#}
+          //{#authURL: "/houndifyAuth",#}
 
           //REQUEST INFO JSON
           //See https://houndify.com/reference/RequestInfo
@@ -185,12 +164,14 @@ cf8dd7a 28 seconds ago
           //for handling the authentication and proxying
           //text search http requests to Houndify backend
           //See SDK's server-side method HoundifyExpress.createTextProxyHandler().
-          //proxy: {
-          //  method: "POST",
-          //  url: "/textSearchProxy"
-            // headers: {}
-            // ... More proxy options will be added as needed
-         // },
+          proxy: {
+           method: "POST",
+           //url: "/textSearchProxy", 
+            headers: {
+              "Access-Control-Allow-Origin": "http://localhost:5000"
+            }
+            // .. More proxy options will be added as needed
+         },
 
           //Response and error handlers
           onResponse: onResponse,
