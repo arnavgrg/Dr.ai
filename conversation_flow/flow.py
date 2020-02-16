@@ -13,16 +13,13 @@ from sentiment import sentiment_analysis as sa
 
 def name_extractor(document):
     ''' Returns name, otherwise returns 1 if no name detected '''
-    import ipdb; ipdb.set_trace()
-    common_words = { 'hi','hello','my','name','is','good', 'morning',
-                        'evening', 'afternoon', 'go', 'by'}
-    document = " ".join([i for i in document.split() if i not in stop])
-    sentences = nltk.sent_tokenize(document)
-    sentences = [nltk.word_tokenize(sent) for sent in sentences]
-    sentences = [nltk.pos_tag(sent) for sent in sentences]
-    for item in sentences[0]:
-        if item[1] == 'NNP' and item[0].lower() not in common_words:
-            return item[0]
+    common_words = {'hi','hello','my','name','is','good', 'morning', "i",
+                    "am", "i'm" 'evening', 'afternoon', 'go', 'by'}
+    document = " ".join([i.lower() for i in document.split() if i not in stop])
+    document = [i for i in document.split() if i not in common_words]
+    print(document)
+    if document:
+        return document[0]
     return None
 
 def age_extractor(document):

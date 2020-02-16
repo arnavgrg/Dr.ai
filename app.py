@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__)
 conversation = flow.Conversation()
+step = 1
 
 # @app.route('/')
 # def index():
@@ -22,22 +23,15 @@ def get():
     return render_template('base.html', username=user_name)
 
 @app.route('/response', methods=['POST'])
-def process_response():
-    request.get_data()
-    data = request.data.decode('utf-8')
-    print(data)
-    response = conversation.conversation(4, data)
-    print(response)
-    res = read_audio.text_to_speech(response['next_text'])
-    print(res)
-    return jsonify({"data": res})
-
-@app.route('/conversation', methods=['POST'])
 def talk():
+    global step
     request.get_data()
     data = request.data
-    res = conversation.conversation(data["step"],["text"])
-    return jsonify(res)
+    res = conversation.conversation(step, data.decode('utf-8'))
+    audio = read_audio.text_to_speech(res['next_text'])
+    print(res['next_text'], res['next_step'])
+    step = res['next_step']
+    return jsonify({'data': audio})
 
 
 if __name__ == "__main__":
