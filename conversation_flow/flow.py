@@ -13,6 +13,7 @@ from sentiment import sentiment_analysis as sa
 
 def name_extractor(document):
     ''' Returns name, otherwise returns 1 if no name detected '''
+    import ipdb; ipdb.set_trace()
     common_words = { 'hi','hello','my','name','is','good', 'morning',
                         'evening', 'afternoon', 'go', 'by'}
     document = " ".join([i for i in document.split() if i not in stop])

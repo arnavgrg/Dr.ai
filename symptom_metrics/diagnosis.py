@@ -1,6 +1,7 @@
 import requests
 import hmac
 import base64
+import hashlib
 import json
 import hashlib
 
@@ -9,7 +10,6 @@ AUTH_ENDPOINT = 'https://authservice.priaid.ch/login'
 api_key = 'Xt43G_GMAIL_COM_AUT'
 secret_key = 'Dy28NfYp4r6GPq53R'
 hashed_credentials = hmac.new(secret_key.encode(), AUTH_ENDPOINT.encode(), hashlib.md5)
-
 
 def authorization():
     URL = AUTH_ENDPOINT

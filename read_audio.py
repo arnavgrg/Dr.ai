@@ -34,24 +34,12 @@ def record_query():
     print(text)
 
 def text_to_speech(text):
+    import ipdb; ipdb.set_trace()
     response = client.query(text)
     try:
         result = response["AllResults"][0]['ResponseAudioBytes']
     except:
         result = ''
     return result
-    # try:
-    #     response = base64.b64decode(response["AllResults"][0]['ResponseAudioBytes'])
-    # except:
-    #     myobj = gTTS(text='Sorry, please try again', lang='eng', slow=False)
-    #     myobj.save("welcome.mp3")
-    #     playSound("welcome.mp3")
-    #     return
-    # print(response)
-    #
-    # with open('myfile.wav', mode='bx') as f:
-    #     f.write(response)
-    # playSound('myfile.wav')
-    # os.remove('myfile.wav')
 
 
