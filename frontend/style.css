@@ -1,0 +1,57 @@
+* {
+  margin: 0px;
+  padding: 0px; }
+
+html {
+  height: 100%; }
+
+body {
+  height: 100%;
+  font-family: 'Space Mono', monospace; }
+
+#container {
+  display: flex;
+  flex-direction: row;
+  background: #abad5c;
+  height: fil; }
+
+.header {
+  display: flex;
+  flex-direction: row;
+  background: #f9b66b;
+  foreground: #abad5c; }
+
+.header_item {
+  padding: 20px 20px; }
+
+.patient_info {
+  display: flex;
+  flex-direction: column;
+  flex: 30%;
+  padding: 2em; }
+
+.image {
+  margin: 2em auto;
+  padding: 2em;
+  width: 50%; }
+
+.text {
+  display: flex;
+  flex-direction: column;
+  flex: 70%;
+  padding: 2em;
+  background: white; }
+
+.chat {
+  color: white;
+  margin: 10px;
+  padding: 2em 1.5em;
+  border-radius: 30px; }
+
+.patient {
+  background: #679a67;
+  margin-right: 20em; }
+
+.ai {
+  background: #23656e;
+  margin-left: 20em; }
