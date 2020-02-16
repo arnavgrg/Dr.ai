@@ -6,7 +6,7 @@ import json
 API_KEY = 'AIzaSyAM8K8pbreod8u0NuIgYxtgAwlYI9NDFbM'
 API_ENDPOINT = 'https://language.googleapis.com/v1/documents:analyzeSentiment'
 
-def sample_analyze_sentiment(text_content):
+def analyze_sentiment(text_content):
 
     URL = API_ENDPOINT
 
