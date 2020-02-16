@@ -1,0 +1,1 @@
+bert-serving-start -model_dir=../biobert/ -ckpt_name=model.ckpt-1000000 -config_name=bert_config.json -num_worker=1 -max_seq_len=30
