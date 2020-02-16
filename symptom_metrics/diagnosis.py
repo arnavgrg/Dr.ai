@@ -45,7 +45,7 @@ class Diagnosis:
             "Name": data[0]["Issue"]["Name"],
             "ProfName": data[0]["Issue"]["ProfName"],
             "Accuracy": data[0]["Issue"]["Accuracy"],
-            "Specialisation": [spec["Name"] for spec in data[0]["Specialisation"]],
+            "Specialisation": [spec["Name"] for spec in data[0]["Specialisation"] if spec["ID"] != 15],
             "Info": self.issue_info(data[0]["Issue"]["ID"])
         }
 
@@ -64,8 +64,7 @@ class Diagnosis:
 
         r = requests.get(url = URL, params = PARAMS)
         data = r.json()
-
-        return [symptom["ID"] for symptom in data]
+        return data[:2] if len(data) >= 2 else data
 
     def issue_info(self, issue_id):
         PARAMS = {
