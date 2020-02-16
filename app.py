@@ -1,11 +1,12 @@
 from flask import render_template, request
 from flask import Flask
 from flask import jsonify
+from conversation_flow import flow
 import read_audio
 import os
 
 app = Flask(__name__)
-
+conversation = flow.Conversation()
 
 @app.route('/')
 def index():
@@ -25,6 +26,13 @@ def process_response():
     print(data.decode('utf-8'))
     res = read_audio.text_to_speech(data.decode('utf-8'))
     return jsonify({"data": res})
+
+@app.route('/conversation', methods=['POST'])
+def talk():
+    request.get_data()
+    data = request.data
+    res = conversation.conversation(data["step"],["text"])
+    return jsonify(res)
 
 
 if __name__ == "__main__":

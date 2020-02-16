@@ -6,6 +6,7 @@ import nltk
 from nltk.corpus import stopwords
 stop = stopwords.words('english')
 nltk.download('averaged_perceptron_tagger')
+nltk.download('punkt')
 sys.path.append('../')
 from symptom_metrics import diagnosis
 from sentiment import sentiment_analysis as sa
@@ -25,23 +26,13 @@ def name_extractor(document):
 
 def age_extractor(document):
     ''' Returns age, otherwise returns 1 if no age keyword detected '''
-    numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-        "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen",
-        "nineteen", "twenty", "twenty one", "twenty two", "twenty three", "twenty four","twenty five",
-        "twenty six", "twenty seven", "twenty eight", "twenty nine", "thirty", "thirty one", "thirty two",
-        "thirty three", "thirty four", "thirty five", "thirty six", "thirty seven", "thirty eight",
-        "thirty nine", "forty", "forty one", "forty two", "forty three", "forty four", "forty five",
-        "forty six", "forty seven", "forty eight", "forty nine", "fifty", "fifty one", "fifty two",
-        "fifty three", "fifty four", "fifty five", "fifty six", "fifty seven", "fifty eight", "fifty nine",
-        "sixty", "sixty one", "sixty two", "sixty three", "sixty four", "sixty five", "sixty six", "sixty seven",
-        "sixty eight", "sixty nine", "seventy", "seventy one", "seventy two", "seventy three", "seventy four",
-        "seventy five", "seventy six", "seventy seven", "seventy eight", "seventy nine", "eighty",
-        "eighty one", "eighty two", "eighty three", "eighty four", "eighty five", "eighty six", "eighty seven",
-        "eighty eight", "eighty nine", "ninety", "ninety one", "ninety two", "ninety three", "ninety four",
-        "ninety five", "ninety six", "ninety seven", "ninety eight", "ninety nine", "one hundred"]
+    numbers = {'one': 1, 'two': 2, 'three': 3, 'four': 4, 'five': 5, 'six': 6, 'seven': 7, 'eight': 8, 'nine': 9, 'ten': 10, 'eleven': 11, 'twelve': 12, 'thirteen': 13, 'fourteen': 14, 'fifteen': 15, 'sixteen': 16, 'seventeen': 17, 'eighteen': 18, 'nineteen': 19, 'twenty': 20, 'twenty one': 21, 'twenty two': 22, 'twenty three': 23, 'twenty four': 24, 'twenty five': 25, 'twenty six': 26, 'twenty seven': 27, 'twenty eight': 28, 'twenty nine': 29, 'thirty': 30, 'thirty one': 31, 'thirty two': 32, 'thirty three': 33, 'thirty four': 34, 'thirty five': 35, 'thirty six': 36, 'thirty seven': 37, 'thirty eight': 38, 'thirty nine': 39, 'forty': 40, 'forty one': 41, 'forty two': 42, 'forty three': 43, 'forty four': 44, 'forty five': 45, 'forty six': 46, 'forty seven': 47, 'forty eight': 48, 'forty nine': 49, 'fifty': 50, 'fifty one': 51, 'fifty two': 52, 'fifty three': 53, 'fifty four': 54, 'fifty five': 55, 'fifty six': 56, 'fifty seven': 57, 'fifty eight': 58, 'fifty nine': 59, 'sixty': 60, 'sixty one': 61, 'sixty two': 62, 'sixty three': 63, 'sixty four': 64, 'sixty five': 65, 'sixty six': 66, 'sixty seven': 67, 'sixty eight': 68, 'sixty nine': 69, 'seventy': 70, 'seventy one': 71, 'seventy two': 72, 'seventy three': 73, 'seventy four': 74, 'seventy five': 75, 'seventy six': 76, 'seventy seven': 77, 'seventy eight': 78, 'seventy nine': 79, 'eighty': 80, 'eighty one': 81, 'eighty two': 82, 'eighty three': 83, 'eighty four': 84, 'eighty five': 85, 'eighty six': 86, 'eighty seven': 87, 'eighty eight': 88, 'eighty nine': 89, 'ninety': 90, 'ninety one': 91, 'ninety two': 92, 'ninety three': 93, 'ninety four': 94, 'ninety five': 95, 'ninety six': 96, 'ninety seven': 97, 'ninety eight': 98, 'ninety nine': 99, 'one hundred': 100}
+
     document = document.translate(str.maketrans('', '', string.punctuation)).lower()
-    for number in range(len(numbers)):
-        if numbers[number] in document:
+    numbers_reverse = list(numbers.keys())
+    numbers_reverse.reverse()
+    for number in numbers_reverse:
+        if number in document:
             return numbers[number]
     return None
 
@@ -51,10 +42,10 @@ def gender_extractor(document):
     female = {'female','woman','women','her','hers','she'}
     document = set(document.lower().split())
     if female.intersection(document):
-        return "Female"
+        return "female"
     elif male.intersection(document):
-        return "Male"
-    return "Non-binary"
+        return "male"
+    return "non-binary"
 
 def analyze_sentiment(text):
     return np.random.choice([-1,0,1])
@@ -104,6 +95,7 @@ class Conversation:
 
     def update_sentence_flow(self):
         self.sentence_flow = {
+        -1: "Based on your symptoms, I am not sure how to proceed. Do you want to connect to an available generalist for a video call ?",
         0: "Sorry, I'm in beta version and I didn't understand. Can you say it again ?",
         1: ["Hi, what is your name ?", "Hello, may I have your name ?", "Hi, could you tell me your name ?"],
         2: ["Nice to meet you, " + self.user_info["name"] + "! Can you tell me your age ?", "Glad to meet you, " + self.user_info["name"] + "! May I have your age, please ?",
@@ -134,7 +126,7 @@ class Conversation:
                     self.user_info["age"] = var
                 elif step == 3:
                     self.user_info["gender"] = var
-                    gender = self.user_info["gender"] if self.user_info["gender"] != "Non-binary" else "Female"
+                    gender = self.user_info["gender"] if self.user_info["gender"] != "non-binary" else "female"
                     birth = 2020-self.user_info["age"]
                     self.diagnosis = diagnosis.Diagnosis(gender, birth)
                 elif step == 5:
@@ -142,6 +134,8 @@ class Conversation:
                     self.proposed_symptom = self.diagnosis.proposed_symptoms(list(var.keys()))
                     if len(self.proposed_symptom) == 0:
                         diagnostic = self.diagnosis.diagnosis(list(self.user_info["symptoms"].keys()))
+                        if type(diagnostic) == type(None):
+                            return {"user_info": self.user_info, "next_text": self.sentence_flow[-1], "next_step": 8}
                         self.user_info["issue"] = {"Name": diagnostic["Name"], "ProfName": diagnostic["ProfName"], "Description": diagnostic["Info"]["DescriptionShort"], "Treatment": diagnostic["Info"]["TreatmentDescription"], "Specialists": diagnostic["Specialisation"]}
                         for symptom_id in self.user_info["symptoms"].keys():
                             self.user_info["symptoms"][symptom_id]["red_flag"] = self.diagnosis.red_flag(symptom_id)
@@ -154,6 +148,8 @@ class Conversation:
                         self.user_info["symptoms"][self.proposed_symptom[0]["ID"]] = {"Name": self.proposed_symptom[0]["Name"]}
                     if len(self.proposed_symptom) == 1:
                         diagnostic = self.diagnosis.diagnosis(list(self.user_info["symptoms"].keys()))
+                        if type(diagnostic) == type(None):
+                            return {"user_info": self.user_info, "next_text": self.sentence_flow[-1], "next_step": 8}
                         self.user_info["issue"] = {"Name": diagnostic["Name"], "ProfName": diagnostic["ProfName"], "Description": diagnostic["Info"]["DescriptionShort"], "Treatment": diagnostic["Info"]["TreatmentDescription"], "Specialists": diagnostic["Specialisation"]}
                         for symptom_id in self.user_info["symptoms"].keys():
                             self.user_info["symptoms"][symptom_id]["red_flag"] = self.diagnosis.red_flag(symptom_id)
@@ -165,6 +161,8 @@ class Conversation:
                     if var == True:
                         self.user_info["symptoms"][self.proposed_symptom[1]["ID"]] = {"Name": self.proposed_symptom[1]["Name"]}
                     diagnostic = self.diagnosis.diagnosis(list(self.user_info["symptoms"].keys()))
+                    if type(diagnostic) == type(None):
+                        return {"user_info": self.user_info, "next_text": self.sentence_flow[-1], "next_step": 8}
                     self.user_info["issue"] = {"Name": diagnostic["Name"], "ProfName": diagnostic["ProfName"], "Description": diagnostic["Info"]["DescriptionShort"], "Treatment": diagnostic["Info"]["TreatmentDescription"], "Specialists": diagnostic["Specialisation"]}
                     for symptom_id in self.user_info["symptoms"].keys():
                         self.user_info["symptoms"][symptom_id]["red_flag"] = self.diagnosis.red_flag(symptom_id)
@@ -200,3 +198,4 @@ while step < 8:
     step = res["next_step"]
     text = input()
 res = conversation.conversation(step, text)
+print(conversation.user_info)

@@ -39,16 +39,17 @@ class Diagnosis:
 
         r = requests.get(url = URL, params = PARAMS)
         data = r.json()
-
-        result = {
-            "ID": data[0]["Issue"]["ID"],
-            "Name": data[0]["Issue"]["Name"],
-            "ProfName": data[0]["Issue"]["ProfName"],
-            "Accuracy": data[0]["Issue"]["Accuracy"],
-            "Specialisation": [spec["Name"] for spec in data[0]["Specialisation"] if spec["ID"] != 15],
-            "Info": self.issue_info(data[0]["Issue"]["ID"])
-        }
-
+        if len(data) > 0:
+            result = {
+                "ID": data[0]["Issue"]["ID"],
+                "Name": data[0]["Issue"]["Name"],
+                "ProfName": data[0]["Issue"]["ProfName"],
+                "Accuracy": data[0]["Issue"]["Accuracy"],
+                "Specialisation": [spec["Name"] for spec in data[0]["Specialisation"] if spec["ID"] != 15],
+                "Info": self.issue_info(data[0]["Issue"]["ID"])
+            }
+        else:
+            result = None
         return result
 
     def proposed_symptoms(self, symptom_ids):
