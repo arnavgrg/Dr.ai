@@ -1,26 +1,42 @@
-<!DOCTYPE html>
-<html style="height: 100%;">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<html>
+  <head>
+    <title>Dr. AI</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
     <link href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap" rel="stylesheet">
-    <head>
-        <title>
-            Dr. AI | Home
-        </title>
-    </head>
-    <body style="font-family: 'Space Mono', monospace;background-image: linear-gradient(to right top, #b32576, #af4697, #a661b2, #9b78c9, #8f8ed9, #819fe7, #73aff2, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);">
-        <!-- <img src="/static/logo.svg" style="margin: auto; width: 8%; height: 5%; margin-left: 2%; margin-top: 1%;" alt="Dr. AI Logo"> -->
-        <div class="card" style="margin: auto; width: 50%; margin-top: 15em; height: 50%; text-align: center;">
-            <div class="card-body">
-                <!-- <h3>Welcome!</h3><br/> -->
-                <form action="http://127.0.0.1:5000/query" method="post">
-                    <div class="form-group">
-                      <label for="emailHelp">Please enter your name:</label>
-                      <input type="text" class="form-control" name="userName" aria-describedby="emailHelp" placeholder="Enter your name here">
-                      <small id="emailHelp" class="form-text text-muted">We only want this to personalize your experience :)</small>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Enter</button>
-                </form>
-            </div>
-        </div>
-    </body>
+  </head>
+  <body>
+    <div id="container">
+      <div id="message">
+	<span class="chat patient">Hello World</span>
+	<span class="chat ai">Hello World to you to</span>
+	<span class="chat patient">Hello World2</span>
+	<span class="chat ai">Hello World to you to</span>
+	<span class="chat patient">Hello World3</span>
+	<span class="chat ai">Hello World to you to</span>
+	<span class="chat patient">Hello World4</span>
+	<span class="chat ai">Hello World to you to</span>
+	<span class="chat patient">Hello World5</span>
+	<span class="chat ai">This is long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long</span>
+      </div>
+      <div id="inputbox">
+	<input id="query" type="text" value="type your fucking text here" />
+	<button id="send" onclick="send()" />
+	<button id="record" onclick="onMicrophoneClick()" />
+      </div>
+      <div id="patient_info">
+	<image class="image" src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" />
+	<div class="patient_dict">
+	  {
+	  "text": "this will be pretty printed json"
+	  }
+	</div>
+      </div>
+    </div>
+
+    <!-- load react
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+     -->
+    <script src="static/script.js"></script>
+  </body>
 </html>

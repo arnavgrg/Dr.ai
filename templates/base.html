@@ -283,7 +283,7 @@
               console.log(status);
               const base64string = data['data']
               console.log(base64string)
-              var snd = new Audio("data:audio/wav;base64," + base64string);
+              var snd = new Audio("data:audio/mp3;base64," + base64string);
               snd.play();
           })
       }
@@ -292,33 +292,34 @@
       //Info object contains useful information about the completed request
       //See https://houndify.com/reference/HoundServer
       function onResponse(response, info) {
-        fireEvent(response.Disambiguation.ChoiceData[0].Transcription)
-        if (response.AllResults && response.AllResults.length) {
-          //Pick and store appropriate ConversationState from the results.
-          //This example takes the default one from the first result.
-          conversationState = response.AllResults[0].ConversationState;
-        }
+	  var response = response.Disambiguation.ChoiceData[0].Transcription
+          fireEvent(response)
+          if (response.AllResults && response.AllResults.length) {
+              //Pick and store appropriate ConversationState from the results.
+              //This example takes the default one from the first result.
+              conversationState = response.AllResults[0].ConversationState;
+          }
 
-        statusElt.innerText = "Received response.";
-        responseElt.parentNode.hidden = false;
-        responseElt.value = response.stringify(undefined, 2);
-        infoElt.parentNode.hidden = false;
-        infoElt.value = JSON.stringify(info, undefined, 2);
+          statusElt.innerText = "Received response.";
+          responseElt.parentNode.hidden = false;
+          responseElt.value = response.stringify(undefined, 2);
+          infoElt.parentNode.hidden = false;
+          infoElt.value = JSON.stringify(info, undefined, 2);
       }
 
       //Fires if error occurs during the request
       function onError(err, info) {
-        statusElt.innerText = "Error: " + JSON.stringify(err);
-        responseElt.parentNode.hidden = true;
-        infoElt.parentNode.hidden = false;
-        infoElt.value = JSON.stringify(info, undefined, 2);
+          statusElt.innerText = "Error: " + JSON.stringify(err);
+          responseElt.parentNode.hidden = true;
+          infoElt.parentNode.hidden = false;
+          infoElt.value = JSON.stringify(info, undefined, 2);
       }
 
       //Fires every time backend sends a speech-to-text
       //transcript of a voice query
       //See https://houndify.com/reference/HoundPartialTranscript
       function onTranscriptionUpdate(transcript) {
-        transcriptElt.value = transcript.PartialTranscript;
+          transcriptElt.value = transcript.PartialTranscript;
       }
     </script>
   </body>
