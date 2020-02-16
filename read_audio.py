@@ -24,7 +24,7 @@ import requests
 
 def text_to_speech(text):
     input = {"text": text}
-    voice = {"languageCode": "en-US"}
+    voice = {"languageCode": "en-US", "ssmlGender": "FEMALE"}
     config = {"audioEncoding": "MP3"}
     data = {'input':input, 'voice':voice, 'audioConfig':config}
     response = requests.post('https://texttospeech.googleapis.com/v1/text:synthesize', data=json.dumps(data), params={'key': "AIzaSyDD1PgNuUQGbCanfVPYT0K2re94Dxv8kYU"})
