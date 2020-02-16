@@ -92,4 +92,4 @@ class Diagnosis:
         r = requests.get(url = URL, params = PARAMS)
         data = r.json()
 
-        return data
+        return True if len(data) > 0 else False
