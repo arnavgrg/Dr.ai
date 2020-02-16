@@ -189,13 +189,14 @@ class Conversation:
 
         return {"user_info": self.user_info, "next_text": next_text, "next_step": next_step}
 
-text = None
-step = 0
-conversation = Conversation()
-while step < 8:
-    res = conversation.conversation(step,text)
-    print(res["next_text"])
-    step = res["next_step"]
-    text = input()
-res = conversation.conversation(step, text)
-print(conversation.user_info)
+if __name__ == "__main__":
+    text = None
+    step = 0
+    conversation = Conversation()
+    while step < 8:
+        res = conversation.conversation(step,text)
+        print(res["next_text"])
+        step = res["next_step"]
+        text = input()
+    res = conversation.conversation(step, text)
+    print(conversation.user_info)
