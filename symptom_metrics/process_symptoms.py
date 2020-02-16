@@ -15,7 +15,7 @@ from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 nltk.download('stopwords')
 stop_words = set(stopwords.words('english')) - {"up"}
 
-SYMPTOMS_FILE = "symptoms.json"
+SYMPTOMS_FILE = "symptom_metrics/symptoms.json"
 symptoms = None
 
 nlp = spacy.load('en', disable=['parser', 'ner'])
@@ -54,7 +54,6 @@ def build_similarity_matrix(user_text, known_symptoms, length):
 
 def get_top_k_indexes(similarity_matrix, k):
     sorted_ = sorted(similarity_matrix)[::-1]
-    print(sorted_[:k])
     reversed_sorted = np.argsort(similarity_matrix)[::-1]
     top_similarity = reversed_sorted[:k]
     return top_similarity
@@ -62,12 +61,11 @@ def get_top_k_indexes(similarity_matrix, k):
 def matched_symptoms(user_text):
     symptoms, user_text_new, known_symptoms, length = parse_symptoms(user_text)
     similarity_matrix = build_similarity_matrix(user_text_new, known_symptoms, length)
-    indexes = get_top_k_indexes(similarity_matrix, 5)
-    for index in indexes:
-        print(symptoms[index])
+    indexes = get_top_k_indexes(similarity_matrix, 2)
+    return [symptoms[i] for i in indexes]
 
 if __name__ == "__main__":
-    matched_symptoms("I got high fever last week and have been in bed ever since.")
+    print(matched_symptoms("I got high fever last week and have been in bed ever since."))
 
 #"I got high fever last week and have been in bed ever since."
 #"I have a had a bad cold for a week and think I am developing a fever"

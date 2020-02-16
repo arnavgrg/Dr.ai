@@ -9,6 +9,7 @@ nltk.download('averaged_perceptron_tagger')
 nltk.download('punkt')
 sys.path.append('../')
 from symptom_metrics import diagnosis
+from symptom_metrics.process_symptoms import matched_symptoms
 from sentiment import sentiment_analysis as sa
 
 def name_extractor(document):
@@ -49,15 +50,13 @@ def analyze_sentiment(text):
     return np.random.choice([-1,0,1])
 
 def symptoms_extractor(text):
-    with open('../symptom_metrics/symptoms.json') as json_file:
+    with open('symptom_metrics/symptoms.json') as json_file:
         data = json.load(json_file)
-    symptoms = list(data.keys())
-    symptoms = np.random.choice(symptoms, np.random.randint(6))
-    ans = {}
+    symptoms = matched_symptoms(text)
+    ret = {}
     for key in symptoms:
-        ans[data[key]] = {"Name": key}
-
-    return [None, ans][np.random.randint(2)]
+        ret[data[key]] = {"Name": key}
+    return ret
 
 def yes_no_extractor(document):
     ''' Returns yes/no from the document; In case of confusion, it returns no'''
@@ -167,7 +166,7 @@ class Conversation:
                     red_flag = [self.user_info["symptoms"][s]["red_flag"] for s in self.user_info["symptoms"].keys()]
                     self.severity = any(red_flag)
                 elif step == 8:
-                    return {"video_call": var}
+                    return {"video_call": var, "user_info": self.user_info}
                 if step < 4:
                     self.update_sentence_flow()
                     next_text = np.random.choice(self.sentence_flow[step+1])
