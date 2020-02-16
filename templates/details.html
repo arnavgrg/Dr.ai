@@ -33,12 +33,12 @@
                         <h5><strong><u> Symptoms Detected </u></strong></h5><br/>
                         <div style="font-size: 0.9em;">
                             <span> 
-                                <strong>Symptoms</strong>: {% print([value for key,value in user_info['symptoms'].items()]) %}
+                                <strong>Symptoms</strong>: {% print(user_info['symptoms'].values()) %}
                             </span>
                         </div></br>
                         <h5><strong><u> Diagnosis </u></strong></h5><br/>
                         <div style="font-size: 0.9em;">
-                            <span> <strong>Issue</strong>: {% print(user_info['issue']['name']) %} </span> <br/>
+                            <span> <strong>Issue</strong>: {% print(user_info['issue']['Name']) %} </span> <br/>
                             <span> <strong>Medical</strong>: {% print(user_info['issue']['ProfName']) %} </span> <br/>
                             <span> <strong>Description</strong>: {% print(user_info['issue']['Description']) %} </span> <br/>
                         </div><br/>
