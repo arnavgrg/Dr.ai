@@ -21,60 +21,52 @@
             <h2 style="text-align: center; color: white;"> Here are some details we gathered! </h2>
         </div><br/><br/>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-lg-6" style="margin: auto; width: 30%;">
                 <div class="card">
                     <div class="card-body">
                         <h5><strong><u> Your Personal Information </u></strong></h5><br/>
-                        <span> { </span><br/>
-                        <span> &nbsp; &nbsp; Name: {% print(user_info['name']) %} </span> <br/>
-                        <span> &nbsp; &nbsp; Age: {% print(user_info['age']) %} </span> <br/>
-                        <span> &nbsp; &nbsp; Gender: {% print(user_info['gender']) %} </span> <br/>
-                        <span> } </span><br/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
+                        <div style="font-size: 0.9em;">
+                        <span> <strong>Name</strong>: {% print(user_info['name']) %} </span> <br/>
+                        <span> <strong>Age</strong>: {% print(user_info['age']) %} </span> <br/>
+                        <span> <strong>Gender</strong>: {% print(user_info['gender']) %} </span> <br/>
+                        </div><br/>
                         <h5><strong><u> Symptoms Detected </u></strong></h5><br/>
-                        <span> { </span><br/>
-                        <span> 
-                            {% pprint(user_info['symptoms']) %}
-                        </span>
-                        <span> } </span><br/>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
+                        <div style="font-size: 0.9em;">
+                            <span> 
+                                <strong>Symptoms</strong>: {% print([value for key,value in user_info['symptoms'].items()]) %}
+                            </span>
+                        </div></br>
                         <h5><strong><u> Diagnosis </u></strong></h5><br/>
-                        <span> { </span><br/>
-                        <span> 
-                            {% pprint(user_info['symptoms']) %}
-                        </span>
-                        <span> } </span><br/>
+                        <div style="font-size: 0.9em;">
+                            <span> <strong>Issue</strong>: {% print(user_info['issue']['name']) %} </span> <br/>
+                            <span> <strong>Medical</strong>: {% print(user_info['issue']['ProfName']) %} </span> <br/>
+                            <span> <strong>Description</strong>: {% print(user_info['issue']['Description']) %} </span> <br/>
+                        </div><br/>
+                        <h5><strong><u> Suggested Treatment </u></strong></h5><br/>
+                        <div style="font-size: 0.9em;">
+                            <span><strong>Treatment</strong>: {% print(user_info['issue']['Treatment']) %} </span>
+                        </div><br/>
+                        <h5><strong><u> Specialists You Should See </u></strong></h5><br/>
+                        <div style="font-size: 0.9em;">
+                            <span> 
+                                <strong>Specialists</strong>: {% print(user_info['issue']['Specialists']) %}
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <br/><br/>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <span> card 1 </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <span> card 2 </span>
-                    </div>
-                </div>
+        </div><br/>
+        <div class="row" style="text-align: center; color: white; font-size: 1em; margin: auto; width: 50%;">
+            <div class="form-check">
+                <input style="font-size: 2em;" type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1"> I want to share the above information with my telemedicine professional </label>
+              </div>
+        </div></br>
+        <div class="row" style="text-align: center; color: white; font-size: 1.5em; margin: auto; width: 50%;">
+            <div> 
+                <strong><a style="color: white;" href="http://localhost:3000/" target="_blank"> Join Telemedicine call! </a></strong>
             </div>
         </div>
-        </div>
+        <br><br/>
     </body>
 </html>
