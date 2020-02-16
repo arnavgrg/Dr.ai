@@ -1,5 +1,12 @@
 import numpy as np
+import string
 
+import nltk
+from nltk.corpus import stopwords
+stop = stopwords.words('english')
+nltk.download('averaged_perceptron_tagger')
+
+"""
 step_fun = {
     1: name_extractor,
     2: age_extractor,
@@ -10,6 +17,61 @@ step_fun = {
     7: yes_no_extractor,
     8: yes_no_extractor
 }
+"""
+
+def name_extractor(document):
+    ''' Returns name, otherwise returns 1 if no name detected '''
+    common_words = { 'hi','hello','my','name','is','good', 'morning', 
+                        'evening', 'afternoon', 'go', 'by'}
+    document = " ".join([i for i in document.split() if i not in stop])
+    sentences = nltk.sent_tokenize(document)
+    sentences = [nltk.word_tokenize(sent) for sent in sentences]
+    sentences = [nltk.pos_tag(sent) for sent in sentences]
+    for item in sentences[0]:
+        if item[1] == 'NNP' and item[0].lower() not in common_words:
+            return item[0]
+    return 1
+
+def age_extractor(document):
+    ''' Returns age, otherwise returns 1 if no age keyword detected ''' 
+    numbers = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+        "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", 
+        "nineteen", "twenty", "twenty one", "twenty two", "twenty three", "twenty four","twenty five",
+        "twenty six", "twenty seven", "twenty eight", "twenty nine", "thirty", "thirty one", "thirty two",
+        "thirty three", "thirty four", "thirty five", "thirty six", "thirty seven", "thirty eight",
+        "thirty nine", "forty", "forty one", "forty two", "forty three", "forty four", "forty five", 
+        "forty six", "forty seven", "forty eight", "forty nine", "fifty", "fifty one", "fifty two",
+        "fifty three", "fifty four", "fifty five", "fifty six", "fifty seven", "fifty eight", "fifty nine", 
+        "sixty", "sixty one", "sixty two", "sixty three", "sixty four", "sixty five", "sixty six", "sixty seven", 
+        "sixty eight", "sixty nine", "seventy", "seventy one", "seventy two", "seventy three", "seventy four",
+        "seventy five", "seventy six", "seventy seven", "seventy eight", "seventy nine", "eighty", 
+        "eighty one", "eighty two", "eighty three", "eighty four", "eighty five", "eighty six", "eighty seven",
+        "eighty eight", "eighty nine", "ninety", "ninety one", "ninety two", "ninety three", "ninety four", 
+        "ninety five", "ninety six", "ninety seven", "ninety eight", "ninety nine", "one hundred"]
+    document = document.translate(str.maketrans('', '', string.punctuation)).lower()
+    for number in range(len(numbers)):
+        if numbers[number] in document:
+            return numbers[number]
+    return 1
+
+def gender_extractor(document):
+    ''' Returns detected gender, otherwise reutnrs 1 if no gender keyword was detected '''
+    male = {'man','male','him','he','his','men'}
+    female = {'female','woman','women','her','hers','she'}
+    document = set(document.lower().split())
+    if female.intersection(document):
+        return "female"
+    elif male.intersection(document):
+        return "male"
+    return "non-binary"
+
+def yes_no_extractor(document):
+    ''' Returns yes/no from the document; In case of confusion, it returns no'''
+    if 'yes' in document.lower() and 'no' not in document.lower():
+        return 'yes'
+    if 'no' in document.lower() and 'yes' not in document.lower():
+        return 'no'
+    return 'no'
 
 def __init__():
     self.user_info = {
