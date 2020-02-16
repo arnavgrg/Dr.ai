@@ -9,14 +9,12 @@ api_key = 'Xt43G_GMAIL_COM_AUT'
 secret_key = 'Dy28NfYp4r6GPq53R'
 hashed_credentials = hmac.new(secret_key.encode(),AUTH_ENDPOINT.encode())
 
-print("AAAA")
-
 def authorization():
     URL = AUTH_ENDPOINT
     headers = {
     'Authorization': "Bearer " + api_key + ":" + base64.b64encode(hashed_credentials.digest()).decode()
     }
-;
+
     r = requests.post(url = URL, headers = headers)
     data = r.json()
 
@@ -28,7 +26,6 @@ class Diagnosis:
         self.gender = gender
         self.birth = birth
         self.token = authorization()
-        print(self.token)
 
     def diagnosis(self, symptom_ids):
         PARAMS = {
@@ -94,8 +91,5 @@ class Diagnosis:
 
         r = requests.get(url = URL, params = PARAMS)
         data = r.json()
-        print(data)
 
-        return data
-
-print(Diagnosis("Male", 1993).issue_info(11))
+        return True if len(data) > 0 else False

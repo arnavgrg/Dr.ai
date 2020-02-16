@@ -9,6 +9,12 @@
       src="https://kit.fontawesome.com/364c1db764.js"
       crossorigin="anonymous"
     ></script>
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script>
   </head>
 
   <body class="bg-gray-100 min-h-screen">
@@ -153,7 +159,9 @@
           requestInfo: {
             UserID: "test_user",
             Latitude: 37.388309,
-            Longitude: -121.973968
+            Longitude: -121.973968,
+            ResponseAudioVoice: "Judy",
+            ResponseAudioShortOrLong: "Short"
           },
 
           //Pass the current ConversationState stored from previous queries
@@ -164,16 +172,12 @@
           //for handling the authentication and proxying
           //text search http requests to Houndify backend
           //See SDK's server-side method HoundifyExpress.createTextProxyHandler().
-          proxy: {
-           method: "POST",
-           //url: "/textSearchProxy", 
-            headers: {
-              "Access-Control-Allow-Origin": "http://localhost:5000"
-            }
-            // .. More proxy options will be added as needed
-         },
-
-          //Response and error handlers
+          //proxy: {
+          //  method: "POST",
+          //  url: "/textSearchProxy"
+            // headers: {}
+            // ... More proxy options will be added as needed
+         // },
           onResponse: onResponse,
           onError: onError
         });
@@ -201,7 +205,9 @@
           requestInfo: {
             UserID: "test_user",
             Latitude: 37.388309,
-            Longitude: -121.973968
+            Longitude: -121.973968,
+            ResponseAudioVoice: "Judy",
+            ResponseAudioShortOrLong: "Short"
           },
 
           //Pass the current ConversationState stored from previous queries
@@ -267,7 +273,19 @@
       }
 
       function fireEvent(data) {
+          const url = "/response";
+          const payload={
+              text:data
+          }
           console.log(data)
+          $.post(url, data, function(data, status) {
+              console.log(data.toString());
+              console.log(status);
+              const base64string = data['data']
+              console.log(base64string)
+              var snd = new Audio("data:audio/wav;base64," + base64string);
+              snd.play();
+          })
       }
 
       //Fires after server responds with Response JSON
