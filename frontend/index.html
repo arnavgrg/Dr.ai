@@ -21,7 +21,7 @@
       <div id="inputbox">
 	<input id="textbox" type="text" value="type your fucking text here" />
 	<button id="send" onclick="send()" />
-	<button id="record" onclick="record()" />
+	<button id="record" onclick="onMicrophoneClick()" />
       </div>
       <div id="patient_info">
 	<image class="image" src="https://www.sackettwaconia.com/wp-content/uploads/default-profile.png" />
@@ -37,6 +37,7 @@
     <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
      -->
-    <script src="script.js"></script>
+    <script type="module" crossorigin="anonymous" src="https://unpkg.com/houndify@3.1.1/dist/houndify.js"></script>
+    <script type="module" crossorigin="anonymous" src="script.js"> </script>
   </body>
 </html>
