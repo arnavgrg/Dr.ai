@@ -1,0 +1,80 @@
+<!-- {'name': 'Arnav', 'age': 18, 'gender': 'male', 'symptoms': {994: 
+    {'Name': 'Knee deformity'}, 257: {'Name': 'Involuntary movements'}, 
+    251: {'Name': 'Pain radiating to the arm'}, 235: {'Name': 'Memory gap'}, 
+    105: {'Name': 'Yellow colored skin'}}, 'issue': {'Name': 'None', 'Specialists': ['None']}}-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap" rel="stylesheet">    
+        <title>
+            Dr. Ai | Your Details
+        </title>
+    </head>
+    <body style="background: #F3904F;  /* fallback for old browsers */
+                 background: -webkit-linear-gradient(to left, #3B4371, #F3904F);  /* Chrome 10-25, Safari 5.1-6 */
+                 background: linear-gradient(to left, #3B4371, #F3904F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */;
+                 padding: 4em 6em;
+                 font-family: 'Space Mono', monospace;">
+        <div style="margin-top: 1em;">
+            <h2 style="text-align: center; color: white;"> Here are some details we gathered! </h2>
+        </div><br/><br/>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><strong><u> Your Personal Information </u></strong></h5><br/>
+                        <span> { </span><br/>
+                        <span> &nbsp; &nbsp; Name: {% print(user_info['name']) %} </span> <br/>
+                        <span> &nbsp; &nbsp; Age: {% print(user_info['age']) %} </span> <br/>
+                        <span> &nbsp; &nbsp; Gender: {% print(user_info['gender']) %} </span> <br/>
+                        <span> } </span><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><strong><u> Symptoms Detected </u></strong></h5><br/>
+                        <span> { </span><br/>
+                        <span> 
+                            {% pprint(user_info['symptoms']) %}
+                        </span>
+                        <span> } </span><br/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5><strong><u> Diagnosis </u></strong></h5><br/>
+                        <span> { </span><br/>
+                        <span> 
+                            {% pprint(user_info['symptoms']) %}
+                        </span>
+                        <span> } </span><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br/><br/>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <span> card 1 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <span> card 2 </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </body>
+</html>
