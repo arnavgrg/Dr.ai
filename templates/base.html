@@ -152,7 +152,7 @@
           //Otherwise you need to create an endpoint on your server
           //for handling the authentication.
           //See SDK's server-side method HoundifyExpress.createAuthenticationHandler().
-          {#authURL: "/houndifyAuth",#}
+          //{#authURL: "/houndifyAuth",#}
 
           //REQUEST INFO JSON
           //See https://houndify.com/reference/RequestInfo
@@ -178,8 +178,6 @@
             // headers: {}
             // ... More proxy options will be added as needed
          // },
-
-          //Response and error handlers
           onResponse: onResponse,
           onError: onError
         });
@@ -277,11 +275,16 @@
       function fireEvent(data) {
           const url = "/response";
           const payload={
-              data:data
+              text:data
           }
           console.log(data)
           $.post(url, data, function(data, status) {
-              console.log(`${data} and ${status}`);
+              console.log(data.toString());
+              console.log(status);
+              const base64string = data['data']
+              console.log(base64string)
+              var snd = new Audio("data:audio/wav;base64," + base64string);
+              snd.play();
           })
       }
 

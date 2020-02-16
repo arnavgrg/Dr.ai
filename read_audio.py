@@ -1,7 +1,8 @@
 import speech_recognition as sr
 import os
 import pygame
-import houndify
+from gtts import gTTS
+from houndify import houndify
 import base64
 
 # use the audio file as the audio source
@@ -39,12 +40,24 @@ def playSound(filename):
     pygame.mixer.music.play()
 
 def text_to_speech(text):
-    response = client.query(text).json()
-    print(response)
-    response = base64.b64decode(response["ResponseAudioBytes"])
-    with open('myfile.wav', mode='bx') as f:
-        f.write(response)
-    playSound('myfile.wav')
-    os.remove('myfile.wav')
+    response = client.query(text)
+    try:
+        result = response["AllResults"][0]['ResponseAudioBytes']
+    except:
+        result = ''
+    return result
+    # try:
+    #     response = base64.b64decode(response["AllResults"][0]['ResponseAudioBytes'])
+    # except:
+    #     myobj = gTTS(text='Sorry, please try again', lang='eng', slow=False)
+    #     myobj.save("welcome.mp3")
+    #     playSound("welcome.mp3")
+    #     return
+    # print(response)
+    #
+    # with open('myfile.wav', mode='bx') as f:
+    #     f.write(response)
+    # playSound('myfile.wav')
+    # os.remove('myfile.wav')
 
 
