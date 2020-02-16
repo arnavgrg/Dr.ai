@@ -10,28 +10,6 @@ body {
   font-family: 'Space Mono', monospace; }
 
 #container {
-<<<<<<< Updated upstream
-  display: flex;
-  flex-direction: row;
-  background: #abad5c;
-  height: fil; }
-
-.header {
-  display: flex;
-  flex-direction: row;
-  background: #f9b66b;
-  foreground: #abad5c; }
-
-.header_item {
-  padding: 20px 20px; }
-
-.patient_info {
-  display: flex;
-  flex-direction: column;
-  flex: 30%;
-  padding: 2em; }
-
-=======
   display: grid;
   grid-template-columns: 1fr 40%;
   grid-template-rows: 1fr 3em;
@@ -85,22 +63,10 @@ body {
   background-size: cover;
   padding: 0.2em; }
 
->>>>>>> Stashed changes
 .image {
-  margin: 2em auto;
-  padding: 2em;
-  width: 50%; }
+  width: 50%;
+  margin: 1em auto; }
 
-<<<<<<< Updated upstream
-.text {
-  display: flex;
-  flex-direction: column;
-  flex: 70%;
-  padding: 2em;
-  background: white; }
-
-=======
->>>>>>> Stashed changes
 .chat {
   color: white;
   margin: 10px;
