@@ -2,17 +2,19 @@ import requests
 import hmac
 import base64
 import json
+import hashlib
 
 API_ENDPOINT = 'https://healthservice.priaid.ch/'
 AUTH_ENDPOINT = 'https://authservice.priaid.ch/login'
 api_key = 'Xt43G_GMAIL_COM_AUT'
 secret_key = 'Dy28NfYp4r6GPq53R'
-hashed_credentials = hmac.new(secret_key.encode(),AUTH_ENDPOINT.encode())
+hashed_credentials = hmac.new(secret_key.encode(), AUTH_ENDPOINT.encode(), hashlib.md5)
+
 
 def authorization():
     URL = AUTH_ENDPOINT
     headers = {
-    'Authorization': "Bearer " + api_key + ":" + base64.b64encode(hashed_credentials.digest()).decode()
+        'Authorization': "Bearer " + api_key + ":" + base64.b64encode(hashed_credentials.digest()).decode()
     }
 
     r = requests.post(url = URL, headers = headers)

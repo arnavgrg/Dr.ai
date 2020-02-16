@@ -1,6 +1,5 @@
 import speech_recognition as sr
 import os
-import pygame
 from gtts import gTTS
 from houndify import houndify
 import base64
@@ -33,11 +32,6 @@ def record_query():
     text = r.recognize_houndify(audio)
 # Print the Translated text
     print(text)
-
-def playSound(filename):
-    pygame.mixer.init()
-    pygame.mixer.music.load(filename)
-    pygame.mixer.music.play()
 
 def text_to_speech(text):
     response = client.query(text)
