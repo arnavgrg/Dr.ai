@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__)
 conversation = flow.Conversation()
 step = 1
-global_user_info = None
+user_info = None
 
 # @app.route('/')
 # def index():
@@ -40,8 +40,10 @@ def talk():
     print(res,step)
     if step == 8:
         #import ipdb; ipdb.set_trace()
-        global_user_info = res['user_info']
-        return redirect(url_for('metrics'))
+        user_info = res['user_info']
+        return render_template('details.html', user_info=user_info)
+        # print(type(user_info))
+        # return redirect(url_for('metrics'))
         #return render_template('details.html', user_info=res['user_info'])
     audio = read_audio.text_to_speech(res['next_text'])
     print(res['next_text'], res['next_step'])
@@ -51,7 +53,7 @@ def talk():
 
 @app.route('/metrics', methods=['GET'])
 def metrics():
-    return render_template('details.html', user_info=global_user_info)
+    print("Global User Info: ", user_info)
 
 if __name__ == "__main__":
     os.environ['FLASK_ENV'] = 'development'

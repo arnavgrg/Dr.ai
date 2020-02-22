@@ -106,9 +106,9 @@ class Conversation:
               },
         6: "Do you also have " + self.proposed_symptom[0]["Name"] + "?",
         7: "And what about " + self.proposed_symptom[1]["Name"] + "?",
-        8: "Based on what you said, you probably have " + self.user_info["issue"]["Name"] + "." + \
+        8: "Based on what you said, you probably have " + self.user_info["issue"]["Name"] + ". " + \
             ("This is a severe condition. You should go to the doctor immediately!" \
-             if self.severity == 1 else "This is not a severe condition, but I recommend you go to the doctor.") + \
+             if self.severity == 1 else "This is not a severe condition, but I recommend you go to the doctor. ") + \
             "You should visit a doctor in General Practice" + \
             "".join([" or " + specialist for specialist in self.user_info["issue"]["Specialists"] if len(self.user_info["issue"]["Specialists"]) > 0]) + \
             ". Do you want us to connect you to an available specialist for a video call ?"
