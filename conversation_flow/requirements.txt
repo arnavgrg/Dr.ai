@@ -73,7 +73,7 @@ pyasn1-modules==0.2.8
 pybind11==2.4.3
 pygame==1.9.6
 Pygments==2.5.2
-PyJWT==1.7.1
+PyJWT==2.4.0
 pylint==2.4.4
 pysbd==0.2.3
 python-dateutil==2.8.1
